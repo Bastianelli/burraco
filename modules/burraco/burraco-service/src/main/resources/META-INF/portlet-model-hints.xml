@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="it.bastianelli.personale.burraco.model.Game">
+		<field name="uuid" type="String" />
+		<field name="gameId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="state" type="String" />
+		<field name="result" type="String" />
+		<field name="description" type="String" />
+		<field name="opponentId" type="long" />
+		<field name="score" type="int" />
+		<field name="opponentScore" type="int" />
+	</model>
+	<model name="it.bastianelli.personale.burraco.model.Round">
+		<field name="uuid" type="String" />
+		<field name="roundId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="gameId" type="long" />
+		<field name="order" type="int" />
+		<field name="pots" type="boolean" />
+		<field name="cleanRun" type="int" />
+		<field name="dirtyRun" type="int" />
+		<field name="score" type="int" />
+		<field name="opponentUserId" type="long" />
+		<field name="opponentUserName" type="String" />
+		<field name="opponentPots" type="boolean" />
+		<field name="opponentCleanRun" type="int" />
+		<field name="opponentDirtyRun" type="int" />
+		<field name="opponentScore" type="int" />
+	</model>
+</model-hints>

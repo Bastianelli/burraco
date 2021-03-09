@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="it.bastianelli.personale.burraco">
+	<namespace>BURRACO</namespace>
+	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+	<entity local-service="true" name="Game" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="gameId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="state" type="String" />
+		<column name="result" type="String" />
+		<column name="description" type="String" />
+		<column name="opponentId" type="long" />
+		<column name="score" type="int" />
+		<column name="opponentScore" type="int" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="state" />
+		</order>
+		<order by="asc">
+			<order-column name="result" />
+		</order>
+		<order by="asc">
+			<order-column name="score" />
+		</order>
+
+		<!-- Finder methods -->
+		
+		<finder name="UserId" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+
+		<finder name="U_R" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="result" />
+		</finder>
+		
+		<finder name="U_O" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="opponentId" />
+		</finder>
+		
+		<finder name="U_S" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="state" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+	</entity>
+	<entity local-service="true" name="Round" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="roundId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="gameId" type="long" />
+		<column name="order" type="int" />
+		
+		<!-- Player fields -->
+		
+		<column name="pots" type="boolean" />
+		<column name="cleanRun" type="int" />
+		<column name="dirtyRun" type="int" />
+		<column name="score" type="int" />
+
+		<!-- Opponent fields -->
+		
+		<column name="opponentUserId" type="long" />
+		<column name="opponentUserName" type="String" />
+		<column name="opponentPots" type="boolean" />
+		<column name="opponentCleanRun" type="int" />
+		<column name="opponentDirtyRun" type="int" />
+		<column name="opponentScore" type="int" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="order" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="GameId" return-type="Collection">
+			<finder-column name="gameId" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+	</entity>
+</service-builder>

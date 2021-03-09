@@ -1,0 +1,11 @@
+Bundle-Name: burraco-api
+Bundle-SymbolicName: it.bastianelli.personale.burraco.api
+Bundle-Version: 1.0.0
+Export-Package: \
+	it.bastianelli.personale.burraco.exception,\
+	it.bastianelli.personale.burraco.model,\
+	it.bastianelli.personale.burraco.service,\
+	it.bastianelli.personale.burraco.service.persistence,\
+	it.bastianelli.personale.burraco.constants
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../burraco-service/service.xml
