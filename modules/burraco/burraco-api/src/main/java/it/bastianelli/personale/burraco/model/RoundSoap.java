@@ -40,7 +40,6 @@ public class RoundSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setGameId(model.getGameId());
-		soapModel.setOrder(model.getOrder());
 		soapModel.setPots(model.isPots());
 		soapModel.setCleanRun(model.getCleanRun());
 		soapModel.setDirtyRun(model.getDirtyRun());
@@ -175,14 +174,6 @@ public class RoundSoap implements Serializable {
 		_gameId = gameId;
 	}
 
-	public int getOrder() {
-		return _order;
-	}
-
-	public void setOrder(int order) {
-		_order = order;
-	}
-
 	public boolean getPots() {
 		return _pots;
 	}
@@ -280,7 +271,6 @@ public class RoundSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _gameId;
-	private int _order;
 	private boolean _pots;
 	private int _cleanRun;
 	private int _dirtyRun;

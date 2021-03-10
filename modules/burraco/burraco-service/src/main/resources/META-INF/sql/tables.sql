@@ -25,7 +25,6 @@ create table BURRACO_Round (
 	createDate DATE null,
 	modifiedDate DATE null,
 	gameId LONG,
-	order_ INTEGER,
 	pots BOOLEAN,
 	cleanRun INTEGER,
 	dirtyRun INTEGER,

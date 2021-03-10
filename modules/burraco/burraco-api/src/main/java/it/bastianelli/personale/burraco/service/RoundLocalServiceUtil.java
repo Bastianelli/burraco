@@ -38,12 +38,16 @@ public class RoundLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>it.bastianelli.personale.burraco.service.impl.RoundLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static it.bastianelli.personale.burraco.model.Round addRound(
-			long gameId, long userId, long opponentUserId,
+			long gameId, long userId, long opponentUserId, boolean pot,
+			int cleanRun, int dirtyRun, int score, boolean opponentPot,
+			int opponentCleanRun, int opponentDirtyRun, int opponentScore,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addRound(
-			gameId, userId, opponentUserId, serviceContext);
+			gameId, userId, opponentUserId, pot, cleanRun, dirtyRun, score,
+			opponentPot, opponentCleanRun, opponentDirtyRun, opponentScore,
+			serviceContext);
 	}
 
 	/**
@@ -112,9 +116,11 @@ public class RoundLocalServiceUtil {
 	 *
 	 * @param round the round
 	 * @return the round that was removed
+	 * @throws PortalException
 	 */
 	public static it.bastianelli.personale.burraco.model.Round deleteRound(
-		it.bastianelli.personale.burraco.model.Round round) {
+			it.bastianelli.personale.burraco.model.Round round)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().deleteRound(round);
 	}
@@ -292,6 +298,10 @@ public class RoundLocalServiceUtil {
 		return getService().getRoundByUuidAndGroupId(uuid, groupId);
 	}
 
+	public static int getRoundCount(long gameId) {
+		return getService().getRoundCount(gameId);
+	}
+
 	/**
 	 * Returns a range of all the rounds.
 	 *
@@ -307,6 +317,28 @@ public class RoundLocalServiceUtil {
 		getRounds(int start, int end) {
 
 		return getService().getRounds(start, end);
+	}
+
+	public static java.util.List<it.bastianelli.personale.burraco.model.Round>
+		getRounds(long gameId) {
+
+		return getService().getRounds(gameId);
+	}
+
+	public static java.util.List<it.bastianelli.personale.burraco.model.Round>
+			getRounds(long gameId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return getService().getRounds(gameId, start, end);
+	}
+
+	public static java.util.List<it.bastianelli.personale.burraco.model.Round>
+		getRounds(
+			long gameId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<it.bastianelli.personale.burraco.model.Round> obc) {
+
+		return getService().getRounds(gameId, start, end, obc);
 	}
 
 	/**
@@ -350,6 +382,19 @@ public class RoundLocalServiceUtil {
 	 */
 	public static int getRoundsCount() {
 		return getService().getRoundsCount();
+	}
+
+	public static it.bastianelli.personale.burraco.model.Round updateRound(
+			long roundId, boolean pot, int cleanRun, int dirtyRun, int score,
+			boolean opponentPot, int opponentCleanRun, int opponentDirtyRun,
+			int opponentScore,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.portal.kernel.exception.SystemException {
+
+		return getService().updateRound(
+			roundId, pot, cleanRun, dirtyRun, score, opponentPot,
+			opponentCleanRun, opponentDirtyRun, opponentScore, serviceContext);
 	}
 
 	/**

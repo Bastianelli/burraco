@@ -90,7 +90,7 @@
 		<!-- Other fields -->
 
 		<column name="gameId" type="long" />
-		<column name="order" type="int" />
+		<!-- <column name="order" type="int" /> -->
 		
 		<!-- Player fields -->
 		
@@ -110,8 +110,14 @@
 
 		<!-- Order -->
 
+		<!-- 
+			<order by="asc">
+				<order-column name="order" />
+			</order>
+		-->
+		
 		<order by="asc">
-			<order-column name="order" />
+			<order-column name="createDate" />
 		</order>
 
 		<!-- Finder methods -->

@@ -134,10 +134,11 @@ public abstract class RoundLocalServiceBaseImpl
 	 *
 	 * @param round the round
 	 * @return the round that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Round deleteRound(Round round) {
+	public Round deleteRound(Round round) throws PortalException {
 		return roundPersistence.remove(round);
 	}
 

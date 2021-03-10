@@ -1959,7 +1959,6 @@ public class RoundPersistenceImpl
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
 		dbColumnNames.put("uuid", "uuid_");
-		dbColumnNames.put("order", "order_");
 
 		setDBColumnNames(dbColumnNames);
 
@@ -2670,7 +2669,7 @@ public class RoundPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid",
 			new String[] {String.class.getName()},
 			RoundModelImpl.UUID_COLUMN_BITMASK |
-			RoundModelImpl.ORDER_COLUMN_BITMASK);
+			RoundModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUuid = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -2704,7 +2703,7 @@ public class RoundPersistenceImpl
 			new String[] {String.class.getName(), Long.class.getName()},
 			RoundModelImpl.UUID_COLUMN_BITMASK |
 			RoundModelImpl.COMPANYID_COLUMN_BITMASK |
-			RoundModelImpl.ORDER_COLUMN_BITMASK);
+			RoundModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByUuid_C = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -2724,7 +2723,7 @@ public class RoundPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGameId",
 			new String[] {Long.class.getName()},
 			RoundModelImpl.GAMEID_COLUMN_BITMASK |
-			RoundModelImpl.ORDER_COLUMN_BITMASK);
+			RoundModelImpl.CREATEDATE_COLUMN_BITMASK);
 
 		_finderPathCountByGameId = new FinderPath(
 			entityCacheEnabled, finderCacheEnabled, Long.class,
@@ -2805,7 +2804,7 @@ public class RoundPersistenceImpl
 		RoundPersistenceImpl.class);
 
 	private static final Set<String> _badColumnNames = SetUtil.fromArray(
-		new String[] {"uuid", "order"});
+		new String[] {"uuid"});
 
 	static {
 		try {

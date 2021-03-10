@@ -27,7 +27,6 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="gameId" type="long" />
-		<field name="order" type="int" />
 		<field name="pots" type="boolean" />
 		<field name="cleanRun" type="int" />
 		<field name="dirtyRun" type="int" />

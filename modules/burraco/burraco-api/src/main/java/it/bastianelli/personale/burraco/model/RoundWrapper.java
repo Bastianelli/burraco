@@ -51,7 +51,6 @@ public class RoundWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("gameId", getGameId());
-		attributes.put("order", getOrder());
 		attributes.put("pots", isPots());
 		attributes.put("cleanRun", getCleanRun());
 		attributes.put("dirtyRun", getDirtyRun());
@@ -120,12 +119,6 @@ public class RoundWrapper
 
 		if (gameId != null) {
 			setGameId(gameId);
-		}
-
-		Integer order = (Integer)attributes.get("order");
-
-		if (order != null) {
-			setOrder(order);
 		}
 
 		Boolean pots = (Boolean)attributes.get("pots");
@@ -327,16 +320,6 @@ public class RoundWrapper
 	@Override
 	public String getOpponentUserUuid() {
 		return model.getOpponentUserUuid();
-	}
-
-	/**
-	 * Returns the order of this round.
-	 *
-	 * @return the order of this round
-	 */
-	@Override
-	public int getOrder() {
-		return model.getOrder();
 	}
 
 	/**
@@ -582,16 +565,6 @@ public class RoundWrapper
 	@Override
 	public void setOpponentUserUuid(String opponentUserUuid) {
 		model.setOpponentUserUuid(opponentUserUuid);
-	}
-
-	/**
-	 * Sets the order of this round.
-	 *
-	 * @param order the order of this round
-	 */
-	@Override
-	public void setOrder(int order) {
-		model.setOrder(order);
 	}
 
 	/**

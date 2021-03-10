@@ -65,7 +65,9 @@ public interface RoundLocalService
 	 * Never modify this interface directly. Add custom service methods to <code>it.bastianelli.personale.burraco.service.impl.RoundLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the round local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link RoundLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public Round addRound(
-			long gameId, long userId, long opponentUserId,
+			long gameId, long userId, long opponentUserId, boolean pot,
+			int cleanRun, int dirtyRun, int score, boolean opponentPot,
+			int opponentCleanRun, int opponentDirtyRun, int opponentScore,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -121,9 +123,10 @@ public interface RoundLocalService
 	 *
 	 * @param round the round
 	 * @return the round that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public Round deleteRound(Round round);
+	public Round deleteRound(Round round) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -251,6 +254,9 @@ public interface RoundLocalService
 	public Round getRoundByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getRoundCount(long gameId);
+
 	/**
 	 * Returns a range of all the rounds.
 	 *
@@ -264,6 +270,17 @@ public interface RoundLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Round> getRounds(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Round> getRounds(long gameId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Round> getRounds(long gameId, int start, int end)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Round> getRounds(
+		long gameId, int start, int end, OrderByComparator<Round> obc);
 
 	/**
 	 * Returns all the rounds matching the UUID and company.
@@ -297,6 +314,12 @@ public interface RoundLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getRoundsCount();
+
+	public Round updateRound(
+			long roundId, boolean pot, int cleanRun, int dirtyRun, int score,
+			boolean opponentPot, int opponentCleanRun, int opponentDirtyRun,
+			int opponentScore, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	/**
 	 * Updates the round in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

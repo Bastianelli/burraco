@@ -15,13 +15,16 @@
 package it.bastianelli.personale.burraco.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import it.bastianelli.personale.burraco.model.Round;
 import it.bastianelli.personale.burraco.service.base.RoundLocalServiceBaseImpl;
@@ -52,8 +55,10 @@ public class RoundLocalServiceImpl extends RoundLocalServiceBaseImpl {
 	 */
 	
 	public Round addRound(
-			long gameId, long userId, long opponentUserId, 
-			ServiceContext serviceContext) 
+			long gameId, long userId, long opponentUserId,
+			boolean pot, int cleanRun, int dirtyRun, int score,
+			boolean opponentPot, int opponentCleanRun, int opponentDirtyRun,
+			int opponentScore, ServiceContext serviceContext) 
 		throws PortalException {
 		
 		long roundId = counterLocalService.increment();
@@ -71,9 +76,105 @@ public class RoundLocalServiceImpl extends RoundLocalServiceBaseImpl {
 		round.setCompanyId(user.getCompanyId());
 		round.setUserId(userId);
 		round.setUserName(user.getFirstName());
-		//TODO COMPLETA addRound!!
+		round.setCreateDate(now);
 		
-		return null;
+		// Other fields
+		
+		round.setGameId(gameId);
+		//TODO round.setOrder();
+		
+		// Player fields
+		
+		round.setPots(pot);
+		round.setCleanRun(cleanRun);
+		round.setDirtyRun(dirtyRun);
+		round.setScore(score);
+		
+		// Opponent fields
+		
+		round.setOpponentUserId(opponentUserId);
+		round.setOpponentUserName(opponent.getFirstName());
+		round.setOpponentPots(opponentPot);
+		round.setOpponentCleanRun(opponentCleanRun);
+		round.setOpponentDirtyRun(opponentDirtyRun);
+		round.setOpponentScore(opponentScore);
+		
+		// Round update
+		
+		round = roundPersistence.update(round);
+		
+		return round;
+	}
+	
+	public Round deleteRound(Round round) throws PortalException {
+		roundPersistence.remove(round);
+		return round;
+	}
+	
+	public Round deleteRound (long roundId) throws PortalException {
+		
+		Round round = roundPersistence.findByPrimaryKey(roundId);
+		return deleteRound(round);
+	}
+	
+	public List<Round> getRounds(long gameId) {
+		
+		return roundPersistence.findByGameId(gameId);
+	}
+	
+	public List<Round> getRounds (long gameId, int start, int end) 
+		throws SystemException {
+		
+		return roundPersistence.findByGameId(gameId, start, end);
+	}
+	
+	public List<Round> getRounds (
+			long gameId, int start, int end, OrderByComparator<Round> obc) {
+		
+		return roundPersistence.findByGameId(gameId, start, end, obc);
+	}
+	
+	public Round getRound (long roundId) throws PortalException {
+		
+		return roundPersistence.findByPrimaryKey(roundId);
+	}
+	
+	public int getRoundCount (long gameId) {
+		
+		return roundPersistence.countByGameId(gameId);
+	}
+	
+	public Round updateRound(
+			long roundId, boolean pot, int cleanRun, int dirtyRun, int score,
+			boolean opponentPot, int opponentCleanRun, int opponentDirtyRun,
+			int opponentScore, ServiceContext serviceContext) 
+		throws PortalException, SystemException {
+		
+		Date now = new Date();
+		
+		Round round = roundPersistence.findByPrimaryKey(roundId);
+		
+		round.setModifiedDate(serviceContext.getModifiedDate(now));
+		
+		// Player fields
+		
+		round.setPots(pot);
+		round.setCleanRun(cleanRun);
+		round.setDirtyRun(dirtyRun);
+		round.setScore(score);
+		
+		// Opponent fields
+		
+		round.setOpponentPots(opponentPot);
+		round.setOpponentCleanRun(opponentCleanRun);
+		round.setOpponentDirtyRun(opponentDirtyRun);
+		round.setOpponentScore(opponentScore);
+		
+		// Round update
+		
+		round = roundPersistence.update(round);
+		
+		return round;
 	}
 	
 }

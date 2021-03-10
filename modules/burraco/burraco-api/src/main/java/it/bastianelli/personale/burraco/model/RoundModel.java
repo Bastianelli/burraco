@@ -218,20 +218,6 @@ public interface RoundModel
 	public void setGameId(long gameId);
 
 	/**
-	 * Returns the order of this round.
-	 *
-	 * @return the order of this round
-	 */
-	public int getOrder();
-
-	/**
-	 * Sets the order of this round.
-	 *
-	 * @param order the order of this round
-	 */
-	public void setOrder(int order);
-
-	/**
 	 * Returns the pots of this round.
 	 *
 	 * @return the pots of this round

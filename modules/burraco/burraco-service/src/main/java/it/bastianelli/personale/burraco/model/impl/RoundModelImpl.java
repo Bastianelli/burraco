@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -78,11 +79,11 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"gameId", Types.BIGINT}, {"order_", Types.INTEGER},
-		{"pots", Types.BOOLEAN}, {"cleanRun", Types.INTEGER},
-		{"dirtyRun", Types.INTEGER}, {"score", Types.INTEGER},
-		{"opponentUserId", Types.BIGINT}, {"opponentUserName", Types.VARCHAR},
-		{"opponentPots", Types.BOOLEAN}, {"opponentCleanRun", Types.INTEGER},
+		{"gameId", Types.BIGINT}, {"pots", Types.BOOLEAN},
+		{"cleanRun", Types.INTEGER}, {"dirtyRun", Types.INTEGER},
+		{"score", Types.INTEGER}, {"opponentUserId", Types.BIGINT},
+		{"opponentUserName", Types.VARCHAR}, {"opponentPots", Types.BOOLEAN},
+		{"opponentCleanRun", Types.INTEGER},
 		{"opponentDirtyRun", Types.INTEGER}, {"opponentScore", Types.INTEGER}
 	};
 
@@ -99,7 +100,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("gameId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("order_", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("pots", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("cleanRun", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("dirtyRun", Types.INTEGER);
@@ -113,14 +113,14 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table BURRACO_Round (uuid_ VARCHAR(75) null,roundId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,gameId LONG,order_ INTEGER,pots BOOLEAN,cleanRun INTEGER,dirtyRun INTEGER,score INTEGER,opponentUserId LONG,opponentUserName VARCHAR(75) null,opponentPots BOOLEAN,opponentCleanRun INTEGER,opponentDirtyRun INTEGER,opponentScore INTEGER)";
+		"create table BURRACO_Round (uuid_ VARCHAR(75) null,roundId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,gameId LONG,pots BOOLEAN,cleanRun INTEGER,dirtyRun INTEGER,score INTEGER,opponentUserId LONG,opponentUserName VARCHAR(75) null,opponentPots BOOLEAN,opponentCleanRun INTEGER,opponentDirtyRun INTEGER,opponentScore INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table BURRACO_Round";
 
-	public static final String ORDER_BY_JPQL = " ORDER BY round.order ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY round.createDate ASC";
 
 	public static final String ORDER_BY_SQL =
-		" ORDER BY BURRACO_Round.order_ ASC";
+		" ORDER BY BURRACO_Round.createDate ASC";
 
 	public static final String DATA_SOURCE = "liferayDataSource";
 
@@ -136,7 +136,7 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 
 	public static final long UUID_COLUMN_BITMASK = 8L;
 
-	public static final long ORDER_COLUMN_BITMASK = 16L;
+	public static final long CREATEDATE_COLUMN_BITMASK = 16L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -168,7 +168,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setGameId(soapModel.getGameId());
-		model.setOrder(soapModel.getOrder());
 		model.setPots(soapModel.isPots());
 		model.setCleanRun(soapModel.getCleanRun());
 		model.setDirtyRun(soapModel.getDirtyRun());
@@ -351,9 +350,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		attributeGetterFunctions.put("gameId", Round::getGameId);
 		attributeSetterBiConsumers.put(
 			"gameId", (BiConsumer<Round, Long>)Round::setGameId);
-		attributeGetterFunctions.put("order", Round::getOrder);
-		attributeSetterBiConsumers.put(
-			"order", (BiConsumer<Round, Integer>)Round::setOrder);
 		attributeGetterFunctions.put("pots", Round::getPots);
 		attributeSetterBiConsumers.put(
 			"pots", (BiConsumer<Round, Boolean>)Round::setPots);
@@ -579,17 +575,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 
 	@JSON
 	@Override
-	public int getOrder() {
-		return _order;
-	}
-
-	@Override
-	public void setOrder(int order) {
-		_order = order;
-	}
-
-	@JSON
-	@Override
 	public boolean getPots() {
 		return _pots;
 	}
@@ -782,7 +767,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		roundImpl.setCreateDate(getCreateDate());
 		roundImpl.setModifiedDate(getModifiedDate());
 		roundImpl.setGameId(getGameId());
-		roundImpl.setOrder(getOrder());
 		roundImpl.setPots(isPots());
 		roundImpl.setCleanRun(getCleanRun());
 		roundImpl.setDirtyRun(getDirtyRun());
@@ -803,15 +787,7 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 	public int compareTo(Round round) {
 		int value = 0;
 
-		if (getOrder() < round.getOrder()) {
-			value = -1;
-		}
-		else if (getOrder() > round.getOrder()) {
-			value = 1;
-		}
-		else {
-			value = 0;
-		}
+		value = DateUtil.compareTo(getCreateDate(), round.getCreateDate());
 
 		if (value != 0) {
 			return value;
@@ -924,8 +900,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		}
 
 		roundCacheModel.gameId = getGameId();
-
-		roundCacheModel.order = getOrder();
 
 		roundCacheModel.pots = isPots();
 
@@ -1044,7 +1018,6 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 	private long _gameId;
 	private long _originalGameId;
 	private boolean _setOriginalGameId;
-	private int _order;
 	private boolean _pots;
 	private int _cleanRun;
 	private int _dirtyRun;

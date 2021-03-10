@@ -61,7 +61,7 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(41);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -81,8 +81,6 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		sb.append(modifiedDate);
 		sb.append(", gameId=");
 		sb.append(gameId);
-		sb.append(", order=");
-		sb.append(order);
 		sb.append(", pots=");
 		sb.append(pots);
 		sb.append(", cleanRun=");
@@ -146,7 +144,6 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		}
 
 		roundImpl.setGameId(gameId);
-		roundImpl.setOrder(order);
 		roundImpl.setPots(pots);
 		roundImpl.setCleanRun(cleanRun);
 		roundImpl.setDirtyRun(dirtyRun);
@@ -186,8 +183,6 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		modifiedDate = objectInput.readLong();
 
 		gameId = objectInput.readLong();
-
-		order = objectInput.readInt();
 
 		pots = objectInput.readBoolean();
 
@@ -238,8 +233,6 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 
 		objectOutput.writeLong(gameId);
 
-		objectOutput.writeInt(order);
-
 		objectOutput.writeBoolean(pots);
 
 		objectOutput.writeInt(cleanRun);
@@ -275,7 +268,6 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 	public long createDate;
 	public long modifiedDate;
 	public long gameId;
-	public int order;
 	public boolean pots;
 	public int cleanRun;
 	public int dirtyRun;

@@ -1,0 +1,4 @@
+Bundle-Name: burraco-web
+Bundle-SymbolicName: it.bastianelli.personale.burraco.portlet
+Bundle-Version: 1.0.0
+Export-Package: it.bastianelli.personale.burraco.portlet.constants
