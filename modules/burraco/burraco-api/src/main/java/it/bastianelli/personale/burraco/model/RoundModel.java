@@ -239,6 +239,27 @@ public interface RoundModel
 	public void setPots(boolean pots);
 
 	/**
+	 * Returns the closing of this round.
+	 *
+	 * @return the closing of this round
+	 */
+	public boolean getClosing();
+
+	/**
+	 * Returns <code>true</code> if this round is closing.
+	 *
+	 * @return <code>true</code> if this round is closing; <code>false</code> otherwise
+	 */
+	public boolean isClosing();
+
+	/**
+	 * Sets whether this round is closing.
+	 *
+	 * @param closing the closing of this round
+	 */
+	public void setClosing(boolean closing);
+
+	/**
 	 * Returns the clean run of this round.
 	 *
 	 * @return the clean run of this round
@@ -343,6 +364,27 @@ public interface RoundModel
 	 * @param opponentPots the opponent pots of this round
 	 */
 	public void setOpponentPots(boolean opponentPots);
+
+	/**
+	 * Returns the opponent closing of this round.
+	 *
+	 * @return the opponent closing of this round
+	 */
+	public boolean getOpponentClosing();
+
+	/**
+	 * Returns <code>true</code> if this round is opponent closing.
+	 *
+	 * @return <code>true</code> if this round is opponent closing; <code>false</code> otherwise
+	 */
+	public boolean isOpponentClosing();
+
+	/**
+	 * Sets whether this round is opponent closing.
+	 *
+	 * @param opponentClosing the opponent closing of this round
+	 */
+	public void setOpponentClosing(boolean opponentClosing);
 
 	/**
 	 * Returns the opponent clean run of this round.

@@ -95,6 +95,7 @@
 		<!-- Player fields -->
 		
 		<column name="pots" type="boolean" />
+		<column name="closing" type="boolean" />
 		<column name="cleanRun" type="int" />
 		<column name="dirtyRun" type="int" />
 		<column name="score" type="int" />
@@ -104,6 +105,7 @@
 		<column name="opponentUserId" type="long" />
 		<column name="opponentUserName" type="String" />
 		<column name="opponentPots" type="boolean" />
+		<column name="opponentClosing" type="boolean" />
 		<column name="opponentCleanRun" type="int" />
 		<column name="opponentDirtyRun" type="int" />
 		<column name="opponentScore" type="int" />

@@ -41,12 +41,14 @@ public class RoundSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setGameId(model.getGameId());
 		soapModel.setPots(model.isPots());
+		soapModel.setClosing(model.isClosing());
 		soapModel.setCleanRun(model.getCleanRun());
 		soapModel.setDirtyRun(model.getDirtyRun());
 		soapModel.setScore(model.getScore());
 		soapModel.setOpponentUserId(model.getOpponentUserId());
 		soapModel.setOpponentUserName(model.getOpponentUserName());
 		soapModel.setOpponentPots(model.isOpponentPots());
+		soapModel.setOpponentClosing(model.isOpponentClosing());
 		soapModel.setOpponentCleanRun(model.getOpponentCleanRun());
 		soapModel.setOpponentDirtyRun(model.getOpponentDirtyRun());
 		soapModel.setOpponentScore(model.getOpponentScore());
@@ -186,6 +188,18 @@ public class RoundSoap implements Serializable {
 		_pots = pots;
 	}
 
+	public boolean getClosing() {
+		return _closing;
+	}
+
+	public boolean isClosing() {
+		return _closing;
+	}
+
+	public void setClosing(boolean closing) {
+		_closing = closing;
+	}
+
 	public int getCleanRun() {
 		return _cleanRun;
 	}
@@ -238,6 +252,18 @@ public class RoundSoap implements Serializable {
 		_opponentPots = opponentPots;
 	}
 
+	public boolean getOpponentClosing() {
+		return _opponentClosing;
+	}
+
+	public boolean isOpponentClosing() {
+		return _opponentClosing;
+	}
+
+	public void setOpponentClosing(boolean opponentClosing) {
+		_opponentClosing = opponentClosing;
+	}
+
 	public int getOpponentCleanRun() {
 		return _opponentCleanRun;
 	}
@@ -272,12 +298,14 @@ public class RoundSoap implements Serializable {
 	private Date _modifiedDate;
 	private long _gameId;
 	private boolean _pots;
+	private boolean _closing;
 	private int _cleanRun;
 	private int _dirtyRun;
 	private int _score;
 	private long _opponentUserId;
 	private String _opponentUserName;
 	private boolean _opponentPots;
+	private boolean _opponentClosing;
 	private int _opponentCleanRun;
 	private int _opponentDirtyRun;
 	private int _opponentScore;

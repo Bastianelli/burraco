@@ -52,12 +52,14 @@ public class RoundWrapper
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("gameId", getGameId());
 		attributes.put("pots", isPots());
+		attributes.put("closing", isClosing());
 		attributes.put("cleanRun", getCleanRun());
 		attributes.put("dirtyRun", getDirtyRun());
 		attributes.put("score", getScore());
 		attributes.put("opponentUserId", getOpponentUserId());
 		attributes.put("opponentUserName", getOpponentUserName());
 		attributes.put("opponentPots", isOpponentPots());
+		attributes.put("opponentClosing", isOpponentClosing());
 		attributes.put("opponentCleanRun", getOpponentCleanRun());
 		attributes.put("opponentDirtyRun", getOpponentDirtyRun());
 		attributes.put("opponentScore", getOpponentScore());
@@ -127,6 +129,12 @@ public class RoundWrapper
 			setPots(pots);
 		}
 
+		Boolean closing = (Boolean)attributes.get("closing");
+
+		if (closing != null) {
+			setClosing(closing);
+		}
+
 		Integer cleanRun = (Integer)attributes.get("cleanRun");
 
 		if (cleanRun != null) {
@@ -163,6 +171,12 @@ public class RoundWrapper
 			setOpponentPots(opponentPots);
 		}
 
+		Boolean opponentClosing = (Boolean)attributes.get("opponentClosing");
+
+		if (opponentClosing != null) {
+			setOpponentClosing(opponentClosing);
+		}
+
 		Integer opponentCleanRun = (Integer)attributes.get("opponentCleanRun");
 
 		if (opponentCleanRun != null) {
@@ -190,6 +204,16 @@ public class RoundWrapper
 	@Override
 	public int getCleanRun() {
 		return model.getCleanRun();
+	}
+
+	/**
+	 * Returns the closing of this round.
+	 *
+	 * @return the closing of this round
+	 */
+	@Override
+	public boolean getClosing() {
+		return model.getClosing();
 	}
 
 	/**
@@ -260,6 +284,16 @@ public class RoundWrapper
 	@Override
 	public int getOpponentCleanRun() {
 		return model.getOpponentCleanRun();
+	}
+
+	/**
+	 * Returns the opponent closing of this round.
+	 *
+	 * @return the opponent closing of this round
+	 */
+	@Override
+	public boolean getOpponentClosing() {
+		return model.getOpponentClosing();
 	}
 
 	/**
@@ -403,6 +437,26 @@ public class RoundWrapper
 	}
 
 	/**
+	 * Returns <code>true</code> if this round is closing.
+	 *
+	 * @return <code>true</code> if this round is closing; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isClosing() {
+		return model.isClosing();
+	}
+
+	/**
+	 * Returns <code>true</code> if this round is opponent closing.
+	 *
+	 * @return <code>true</code> if this round is opponent closing; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isOpponentClosing() {
+		return model.isOpponentClosing();
+	}
+
+	/**
 	 * Returns <code>true</code> if this round is opponent pots.
 	 *
 	 * @return <code>true</code> if this round is opponent pots; <code>false</code> otherwise
@@ -435,6 +489,16 @@ public class RoundWrapper
 	@Override
 	public void setCleanRun(int cleanRun) {
 		model.setCleanRun(cleanRun);
+	}
+
+	/**
+	 * Sets whether this round is closing.
+	 *
+	 * @param closing the closing of this round
+	 */
+	@Override
+	public void setClosing(boolean closing) {
+		model.setClosing(closing);
 	}
 
 	/**
@@ -505,6 +569,16 @@ public class RoundWrapper
 	@Override
 	public void setOpponentCleanRun(int opponentCleanRun) {
 		model.setOpponentCleanRun(opponentCleanRun);
+	}
+
+	/**
+	 * Sets whether this round is opponent closing.
+	 *
+	 * @param opponentClosing the opponent closing of this round
+	 */
+	@Override
+	public void setOpponentClosing(boolean opponentClosing) {
+		model.setOpponentClosing(opponentClosing);
 	}
 
 	/**

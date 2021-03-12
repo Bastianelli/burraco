@@ -80,9 +80,10 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
 		{"gameId", Types.BIGINT}, {"pots", Types.BOOLEAN},
-		{"cleanRun", Types.INTEGER}, {"dirtyRun", Types.INTEGER},
-		{"score", Types.INTEGER}, {"opponentUserId", Types.BIGINT},
-		{"opponentUserName", Types.VARCHAR}, {"opponentPots", Types.BOOLEAN},
+		{"closing", Types.BOOLEAN}, {"cleanRun", Types.INTEGER},
+		{"dirtyRun", Types.INTEGER}, {"score", Types.INTEGER},
+		{"opponentUserId", Types.BIGINT}, {"opponentUserName", Types.VARCHAR},
+		{"opponentPots", Types.BOOLEAN}, {"opponentClosing", Types.BOOLEAN},
 		{"opponentCleanRun", Types.INTEGER},
 		{"opponentDirtyRun", Types.INTEGER}, {"opponentScore", Types.INTEGER}
 	};
@@ -101,19 +102,21 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("gameId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("pots", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("closing", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("cleanRun", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("dirtyRun", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("score", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("opponentUserId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("opponentUserName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("opponentPots", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("opponentClosing", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("opponentCleanRun", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("opponentDirtyRun", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("opponentScore", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table BURRACO_Round (uuid_ VARCHAR(75) null,roundId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,gameId LONG,pots BOOLEAN,cleanRun INTEGER,dirtyRun INTEGER,score INTEGER,opponentUserId LONG,opponentUserName VARCHAR(75) null,opponentPots BOOLEAN,opponentCleanRun INTEGER,opponentDirtyRun INTEGER,opponentScore INTEGER)";
+		"create table BURRACO_Round (uuid_ VARCHAR(75) null,roundId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,gameId LONG,pots BOOLEAN,closing BOOLEAN,cleanRun INTEGER,dirtyRun INTEGER,score INTEGER,opponentUserId LONG,opponentUserName VARCHAR(75) null,opponentPots BOOLEAN,opponentClosing BOOLEAN,opponentCleanRun INTEGER,opponentDirtyRun INTEGER,opponentScore INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table BURRACO_Round";
 
@@ -169,12 +172,14 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setGameId(soapModel.getGameId());
 		model.setPots(soapModel.isPots());
+		model.setClosing(soapModel.isClosing());
 		model.setCleanRun(soapModel.getCleanRun());
 		model.setDirtyRun(soapModel.getDirtyRun());
 		model.setScore(soapModel.getScore());
 		model.setOpponentUserId(soapModel.getOpponentUserId());
 		model.setOpponentUserName(soapModel.getOpponentUserName());
 		model.setOpponentPots(soapModel.isOpponentPots());
+		model.setOpponentClosing(soapModel.isOpponentClosing());
 		model.setOpponentCleanRun(soapModel.getOpponentCleanRun());
 		model.setOpponentDirtyRun(soapModel.getOpponentDirtyRun());
 		model.setOpponentScore(soapModel.getOpponentScore());
@@ -353,6 +358,9 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		attributeGetterFunctions.put("pots", Round::getPots);
 		attributeSetterBiConsumers.put(
 			"pots", (BiConsumer<Round, Boolean>)Round::setPots);
+		attributeGetterFunctions.put("closing", Round::getClosing);
+		attributeSetterBiConsumers.put(
+			"closing", (BiConsumer<Round, Boolean>)Round::setClosing);
 		attributeGetterFunctions.put("cleanRun", Round::getCleanRun);
 		attributeSetterBiConsumers.put(
 			"cleanRun", (BiConsumer<Round, Integer>)Round::setCleanRun);
@@ -375,6 +383,11 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		attributeGetterFunctions.put("opponentPots", Round::getOpponentPots);
 		attributeSetterBiConsumers.put(
 			"opponentPots", (BiConsumer<Round, Boolean>)Round::setOpponentPots);
+		attributeGetterFunctions.put(
+			"opponentClosing", Round::getOpponentClosing);
+		attributeSetterBiConsumers.put(
+			"opponentClosing",
+			(BiConsumer<Round, Boolean>)Round::setOpponentClosing);
 		attributeGetterFunctions.put(
 			"opponentCleanRun", Round::getOpponentCleanRun);
 		attributeSetterBiConsumers.put(
@@ -592,6 +605,23 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 
 	@JSON
 	@Override
+	public boolean getClosing() {
+		return _closing;
+	}
+
+	@JSON
+	@Override
+	public boolean isClosing() {
+		return _closing;
+	}
+
+	@Override
+	public void setClosing(boolean closing) {
+		_closing = closing;
+	}
+
+	@JSON
+	@Override
 	public int getCleanRun() {
 		return _cleanRun;
 	}
@@ -685,6 +715,23 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 
 	@JSON
 	@Override
+	public boolean getOpponentClosing() {
+		return _opponentClosing;
+	}
+
+	@JSON
+	@Override
+	public boolean isOpponentClosing() {
+		return _opponentClosing;
+	}
+
+	@Override
+	public void setOpponentClosing(boolean opponentClosing) {
+		_opponentClosing = opponentClosing;
+	}
+
+	@JSON
+	@Override
 	public int getOpponentCleanRun() {
 		return _opponentCleanRun;
 	}
@@ -768,12 +815,14 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		roundImpl.setModifiedDate(getModifiedDate());
 		roundImpl.setGameId(getGameId());
 		roundImpl.setPots(isPots());
+		roundImpl.setClosing(isClosing());
 		roundImpl.setCleanRun(getCleanRun());
 		roundImpl.setDirtyRun(getDirtyRun());
 		roundImpl.setScore(getScore());
 		roundImpl.setOpponentUserId(getOpponentUserId());
 		roundImpl.setOpponentUserName(getOpponentUserName());
 		roundImpl.setOpponentPots(isOpponentPots());
+		roundImpl.setOpponentClosing(isOpponentClosing());
 		roundImpl.setOpponentCleanRun(getOpponentCleanRun());
 		roundImpl.setOpponentDirtyRun(getOpponentDirtyRun());
 		roundImpl.setOpponentScore(getOpponentScore());
@@ -903,6 +952,8 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 
 		roundCacheModel.pots = isPots();
 
+		roundCacheModel.closing = isClosing();
+
 		roundCacheModel.cleanRun = getCleanRun();
 
 		roundCacheModel.dirtyRun = getDirtyRun();
@@ -920,6 +971,8 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 		}
 
 		roundCacheModel.opponentPots = isOpponentPots();
+
+		roundCacheModel.opponentClosing = isOpponentClosing();
 
 		roundCacheModel.opponentCleanRun = getOpponentCleanRun();
 
@@ -1019,12 +1072,14 @@ public class RoundModelImpl extends BaseModelImpl<Round> implements RoundModel {
 	private long _originalGameId;
 	private boolean _setOriginalGameId;
 	private boolean _pots;
+	private boolean _closing;
 	private int _cleanRun;
 	private int _dirtyRun;
 	private int _score;
 	private long _opponentUserId;
 	private String _opponentUserName;
 	private boolean _opponentPots;
+	private boolean _opponentClosing;
 	private int _opponentCleanRun;
 	private int _opponentDirtyRun;
 	private int _opponentScore;

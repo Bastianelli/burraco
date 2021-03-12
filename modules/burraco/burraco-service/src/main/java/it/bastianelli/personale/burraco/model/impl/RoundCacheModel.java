@@ -61,7 +61,7 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(39);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -83,6 +83,8 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		sb.append(gameId);
 		sb.append(", pots=");
 		sb.append(pots);
+		sb.append(", closing=");
+		sb.append(closing);
 		sb.append(", cleanRun=");
 		sb.append(cleanRun);
 		sb.append(", dirtyRun=");
@@ -95,6 +97,8 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		sb.append(opponentUserName);
 		sb.append(", opponentPots=");
 		sb.append(opponentPots);
+		sb.append(", opponentClosing=");
+		sb.append(opponentClosing);
 		sb.append(", opponentCleanRun=");
 		sb.append(opponentCleanRun);
 		sb.append(", opponentDirtyRun=");
@@ -145,6 +149,7 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 
 		roundImpl.setGameId(gameId);
 		roundImpl.setPots(pots);
+		roundImpl.setClosing(closing);
 		roundImpl.setCleanRun(cleanRun);
 		roundImpl.setDirtyRun(dirtyRun);
 		roundImpl.setScore(score);
@@ -158,6 +163,7 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		}
 
 		roundImpl.setOpponentPots(opponentPots);
+		roundImpl.setOpponentClosing(opponentClosing);
 		roundImpl.setOpponentCleanRun(opponentCleanRun);
 		roundImpl.setOpponentDirtyRun(opponentDirtyRun);
 		roundImpl.setOpponentScore(opponentScore);
@@ -186,6 +192,8 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 
 		pots = objectInput.readBoolean();
 
+		closing = objectInput.readBoolean();
+
 		cleanRun = objectInput.readInt();
 
 		dirtyRun = objectInput.readInt();
@@ -196,6 +204,8 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		opponentUserName = objectInput.readUTF();
 
 		opponentPots = objectInput.readBoolean();
+
+		opponentClosing = objectInput.readBoolean();
 
 		opponentCleanRun = objectInput.readInt();
 
@@ -235,6 +245,8 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 
 		objectOutput.writeBoolean(pots);
 
+		objectOutput.writeBoolean(closing);
+
 		objectOutput.writeInt(cleanRun);
 
 		objectOutput.writeInt(dirtyRun);
@@ -251,6 +263,8 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 		}
 
 		objectOutput.writeBoolean(opponentPots);
+
+		objectOutput.writeBoolean(opponentClosing);
 
 		objectOutput.writeInt(opponentCleanRun);
 
@@ -269,12 +283,14 @@ public class RoundCacheModel implements CacheModel<Round>, Externalizable {
 	public long modifiedDate;
 	public long gameId;
 	public boolean pots;
+	public boolean closing;
 	public int cleanRun;
 	public int dirtyRun;
 	public int score;
 	public long opponentUserId;
 	public String opponentUserName;
 	public boolean opponentPots;
+	public boolean opponentClosing;
 	public int opponentCleanRun;
 	public int opponentDirtyRun;
 	public int opponentScore;
